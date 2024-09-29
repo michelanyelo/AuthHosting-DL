@@ -1,5 +1,5 @@
 <script setup>
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { $auth } from "@/firebaseConfig"
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -16,6 +16,16 @@ const handleSignup = async () => {
         router.push({ name: "login" }); // Redirige a la vista de inicio de sesión
     } catch (error) {
         console.error(error); // Captura y muestra cualquier error
+    }
+}
+
+const signInWithGoogle = async () => {
+    try {
+        const provider = new GoogleAuthProvider()
+
+        await signInWithPopup($auth, provider)
+    } catch (error) {
+        console.error(error)
     }
 }
 
@@ -38,6 +48,12 @@ const handleSignup = async () => {
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Sign Up</button>
             </form>
+            <div class="divider mt-3 mb-3 text-center">OR</div>
+            <button class="btn btn-google w-100" @click="signInWithGoogle">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo"
+                    class="google-icon" />
+                Sign Up with Google
+            </button>
         </div>
     </div>
 </template>
@@ -61,5 +77,40 @@ button {
 button:hover {
     background-color: #35495e;
     color: white;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+    margin: auto;
+    width: 45%;
+    height: 1px;
+    position: relative;
+    top: 0.8em;
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.btn-google {
+    background-color: white;
+    color: #db4437;
+    border: 2px solid #db4437;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-google:hover {
+    background-color: white;
+    color: #db4437;
 }
 </style>
