@@ -2,7 +2,9 @@
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { $auth } from "@/firebaseConfig"
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const email = ref("")
 const password = ref("")
 
@@ -11,6 +13,7 @@ const handleSignup = async () => {
         await createUserWithEmailAndPassword($auth, email.value, password.value)
         email.value = ""
         password.value = ""
+        router.push({ name: "login" }) // Redirige a la vista de inicio de sesión
     } catch (error) {
         console.error(error)
     }
