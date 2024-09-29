@@ -10,14 +10,15 @@ const password = ref("")
 
 const handleSignup = async () => {
     try {
-        await createUserWithEmailAndPassword($auth, email.value, password.value)
-        email.value = ""
-        password.value = ""
-        router.push({ name: "login" }) // Redirige a la vista de inicio de sesión
+        await createUserWithEmailAndPassword($auth, email.value, password.value);
+        email.value = "";
+        password.value = "";
+        router.push({ name: "login" }); // Redirige a la vista de inicio de sesión
     } catch (error) {
-        console.error(error)
+        console.error(error); // Captura y muestra cualquier error
     }
 }
+
 </script>
 
 <template>

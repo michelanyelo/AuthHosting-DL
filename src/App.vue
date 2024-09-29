@@ -26,10 +26,8 @@ const logout = async () => {
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
         <RouterLink :to="{ name: 'signup' }">Signup</RouterLink>
         <RouterLink :to="{ name: 'login' }">Login</RouterLink>
-        <!-- Agregar un botón o enlace para cerrar sesión -->
         <a href="#" @click.prevent="logout">Cerrar sesión</a>
       </nav>
     </div>
@@ -39,7 +37,6 @@ const logout = async () => {
 </template>
 
 <style scoped>
-/* Mantén tus estilos anteriores */
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -75,10 +72,8 @@ nav a:first-of-type {
   border: 0;
 }
 
-/* Estilos adicionales opcionales para el botón de cerrar sesión */
 nav a:last-of-type {
   color: red;
-  /* Cambia el color del enlace de cerrar sesión */
 }
 
 @media (min-width: 1024px) {

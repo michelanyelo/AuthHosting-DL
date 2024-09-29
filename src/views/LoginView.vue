@@ -2,15 +2,18 @@
 import { ref } from 'vue'
 import { $auth } from "@/firebaseConfig"
 import { signInWithEmailAndPassword } from "firebase/auth"
+import { useRouter } from 'vue-router'
 
 const email = ref("")
 const password = ref("")
+const router = useRouter()
 
 const handleLogin = async () => {
     try {
         await signInWithEmailAndPassword($auth, email.value, password.value)
         email.value = ""
         password.value = ""
+        router.push({ name: "home" })
     } catch (error) {
         console.error(error)
     }

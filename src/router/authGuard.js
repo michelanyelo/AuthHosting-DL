@@ -1,3 +1,5 @@
+// authGuard.js
+
 import { onAuthStateChanged } from "firebase/auth";
 import { $auth } from "@/firebaseConfig";
 
@@ -6,7 +8,7 @@ export const authGuard = (to, from, next) => {
         if (!user) {
             next({ name: 'signup' });
         } else {
-            next(); // Usuario autenticado, permite la navegación
+            next(); // Permite la navegación
         }
         unsubscribe(); // Desuscribirse para evitar múltiples llamadas
     });
@@ -15,9 +17,9 @@ export const authGuard = (to, from, next) => {
 export const noAuthGuard = (to, from, next) => {
     const unsubscribe = onAuthStateChanged($auth, (user) => {
         if (user) {
-            next({ name: 'home' });
+            next({ name: 'home' }); // Redirige a home si ya está autenticado
         } else {
-            next(); // No hay usuario autenticado, permite la navegación
+            next(); // Permite la navegación si no hay usuario autenticado
         }
         unsubscribe(); // Desuscribirse para evitar múltiples llamadas
     });
