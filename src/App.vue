@@ -1,6 +1,20 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView, useRouter } from 'vue-router';
+import HelloWorld from './components/HelloWorld.vue';
+import { signOut } from "firebase/auth";
+import { $auth } from "@/firebaseConfig";
+
+const router = useRouter();
+
+const logout = async () => {
+  try {
+    await signOut($auth);
+    // Redirigir al usuario a la página de inicio de sesión después de cerrar sesión
+    router.push({ name: 'login' });
+  } catch (error) {
+    console.error("Error al cerrar sesión:", error);
+  }
+};
 </script>
 
 <template>
@@ -15,6 +29,8 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/about">About</RouterLink>
         <RouterLink :to="{ name: 'signup' }">Signup</RouterLink>
         <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+        <!-- Agregar un botón o enlace para cerrar sesión -->
+        <a href="#" @click.prevent="logout">Cerrar sesión</a>
       </nav>
     </div>
   </header>
@@ -23,6 +39,7 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
+/* Mantén tus estilos anteriores */
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -58,6 +75,12 @@ nav a:first-of-type {
   border: 0;
 }
 
+/* Estilos adicionales opcionales para el botón de cerrar sesión */
+nav a:last-of-type {
+  color: red;
+  /* Cambia el color del enlace de cerrar sesión */
+}
+
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -79,7 +102,6 @@ nav a:first-of-type {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
     margin-top: 1rem;
   }
