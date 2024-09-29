@@ -11,8 +11,15 @@ export const authGuard = async (to, from, next) => {
     if (!user) {
         // Si no hay usuario, redirige a la página de registro
         next({ name: 'signup' });
-    } else { // Si el usuario está autenticado deja navegar
-        next()
+    } else {
+        // Si el usuario está autenticado
+        if (to.name === 'login') {
+            // Si intenta acceder a la página de login, redirige a home
+            next({ name: 'home' });
+        } else {
+            // Permite la navegación a otras rutas (ej. home)
+            next();
+        }
     }
 };
 

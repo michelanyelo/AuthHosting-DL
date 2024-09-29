@@ -14,7 +14,7 @@ const handleSignup = async () => {
         await createUserWithEmailAndPassword($auth, email.value, password.value);
         email.value = "";
         password.value = "";
-        router.push({ name: "login" }); // Redirige a la vista de inicio de sesión
+        router.push({ name: "home" }); // Redirige a la vista de inicio
     } catch (error) {
         console.error(error); // Captura y muestra cualquier error
     }

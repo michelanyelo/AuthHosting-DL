@@ -1,12 +1,15 @@
 <script setup>
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { $auth } from "@/firebaseConfig"
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const signInWithGoogle = async () => {
     try {
         const provider = new GoogleAuthProvider()
-
         await signInWithPopup($auth, provider)
+        router.push({ name: "home" }); // Redirige a la vista de inicio
     } catch (error) {
         console.error(error)
     }
