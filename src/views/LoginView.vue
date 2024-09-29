@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { $auth } from "@/firebaseConfig"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { useRouter } from 'vue-router'
+import SignwithgoogleComp from "@/components/SignwithgoogleComp.vue"
 
 const email = ref("")
 const password = ref("")
@@ -38,6 +39,8 @@ const handleLogin = async () => {
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
+            <div class="divider mt-3 mb-3 text-center">OR</div>
+            <SignwithgoogleComp />
         </div>
     </div>
 </template>
@@ -61,5 +64,21 @@ button {
 button:hover {
     background-color: #35495e;
     color: white;
+}
+
+.divider {
+    display: flex;
+    position: relative;
+    text-align: center;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+    margin: 15px;
+    height: 1px;
+    position: relative;
 }
 </style>
